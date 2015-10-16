@@ -1,0 +1,62 @@
+!!!
+%html
+  %head
+    %title= content_for?(:title) ? yield(:title) : 'RailsApp'
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    = stylesheet_link_tag "application", media: "all"
+    /[if IE 7]
+      = stylesheet_link_tag "ie/font-awesome-ie7.min"
+    = yield :page_stylesheets
+    = stylesheet_link_tag "ace-fonts", "ace.min", "ace-rtl.min", "ace-skins.min"
+    /[if IE 8]
+      = stylesheet_link_tag "ie/ace-ie.min"
+    = javascript_include_tag "ace-extra.min"
+    /[if IE 9]
+      = javascript_include_tag "ie/html5shiv", "ie/respond.min"
+
+    = csrf_meta_tags
+
+  %body{class: "#{controller_name} #{controller_name}-#{action_name}"}
+    #navbar.navbar.navbar-default
+      :javascript
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+      #navbar-container.navbar-container
+        .navbar-header.pull-left
+          %a.navbar-brand{href: "#"}
+            %small
+              %i.fa.fa-leaf
+              Club Manager
+        = render 'layouts/navbar_header'
+        
+    #main-container.main-container
+      :javascript
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+      .main-container-inner
+        %a#menu-toggler.menu-toggler{href: "#"}
+          %span.menu-text
+        = render 'layouts/sidebar'
+        
+        .main-content
+          
+
+          = yield
+          
+
+      = link_to '#', id: 'btn-scroll-up', class: 'btn-scroll-up btn btn-sm btn-inverse'  do
+        %i.fa.fa-angle-double-up.icon-only.bigger-110
+    :plain
+      <!--[if !IE]> <!-->
+    :javascript
+      window.jQuery || document.write("#{escape_javascript javascript_include_tag 'jquery-2.0.3.min'}");
+    /<![endif]
+    :plain
+      <!--[if IE] -->
+    :javascript
+      window.jQuery || document.write("#{escape_javascript javascript_include_tag 'jquery-1.10.2.min'}");
+    /<![endif]
+    :javascript
+      if("ontouchend" in document) document.write("#{escape_javascript javascript_include_tag 'jquery.mobile.custom.min'}");
+    = javascript_include_tag 'application'
+    = yield :page_specific_scripts
+    = javascript_include_tag 'ace-elements.min', 'ace.min'
+    = yield :inline_page_scripts

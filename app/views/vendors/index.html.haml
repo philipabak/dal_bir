@@ -1,0 +1,27 @@
+
+= content_for :page_specific_scripts do
+	= javascript_include_tag "vendors"
+	:javascript
+		var grid_data = #{@vendors.to_json};
+		var state_list = "#{@states.to_s}";
+		jQuery(function($) {
+			var grid_selector = "#grid-table";
+			var pager_selector = "#grid-pager";
+
+			jQuery(grid_selector).jqGrid({
+				data: grid_data
+			});
+		});
+%div.page-content
+	%div.page-header
+		%h1 Vendors
+	.row
+		.col-xs-12
+			%table#vendors-table
+				#vendors-pager
+
+= link_to 'New Vendor', new_vendor_path
+-#= content_for :page_stylesheets do
+	-# = stylesheet_link_tag "jquery-ui-1.10.3.full.min", "datepicker", "ui.jqgrid"
+
+-#= content_for :inline_page_scripts do

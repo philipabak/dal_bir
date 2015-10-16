@@ -1,0 +1,31 @@
+#sidebar.sidebar
+  :javascript
+    try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+  #sidebar-shortcuts.sidebar-shortcuts
+  / #sidebar-shortcuts
+  %ul.nav.nav-list
+    %li{:class => controller.controller_name == 'home' ? 'active' : ''}
+      = link_to root_path do
+        %i.fa.fa-dashboard
+        %span.menu-text
+          Dashboard
+    %li{:class => controller.controller_name == 'agreements' ? 'active' : ''}
+      = link_to agreements_path do
+        %i.fa.fa-dashboard
+        %span.menu-text
+          Agreements
+    %li{:class => controller.controller_name == 'vendors' ? 'active' : ''}
+      = link_to vendors_path do
+        %i.fa.fa-dashboard
+        %span.menu-text
+          Vendors
+    %li{:class => controller.controller_name == 'customers' ? 'active' : ''}
+      = link_to customers_path do
+        %i.fa.fa-dashboard
+        %span.menu-text
+          Customers
+  / /.nav-list
+  #sidebar-collapse.sidebar-collapse
+    %i.fa.fa-double-angle-left{"data-icon1" => "fa-double-angle-left", "data-icon2" => "fa-double-angle-right"}
+  :javascript
+    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}

@@ -1,0 +1,21 @@
+
+= content_for :page_specific_scripts do
+  = javascript_include_tag "departments"
+  :javascript
+    var $path_base = "/customers/" + #{@customer._id} + "/";
+    var grid_data = #{@departments.to_json};
+    jQuery(function($) {
+      var grid_selector = "#departments-table";
+      var pager_selector = "#departments-pager";
+
+      jQuery(grid_selector).jqGrid({
+        data: grid_data
+      });
+    });
+%div.page-content
+  %div.page-header
+    %h1 Departments
+  .row
+    .col-xs-12
+      %table#departments-table
+        #departments-pager
